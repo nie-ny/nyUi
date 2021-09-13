@@ -17,7 +17,7 @@ import catalogueMap from './catalogue'
 
 const isDev = process.env.NODE_ENV === 'production'
 
-// 不能使用正则匹配，有定制化组件也是以echarts命名
+// 不能使用正则匹配
 const externalAry = ['prop-types', 'react', 'react-dom']
 
 export default {
