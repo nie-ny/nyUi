@@ -14,11 +14,14 @@ import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 // 组件目录
 import catalogueMap from './catalogue'
+console.log('🚀 ~ file: rollup.config.js ~ line 17 ~ catalogueMap', catalogueMap)
 
 const isDev = process.env.NODE_ENV === 'production'
 
 // 不能使用正则匹配
 const externalAry = ['prop-types', 'react', 'react-dom']
+
+// rollup 提供代码分割功能，主要原理是配置多入口文件，这样每个入口文件都会对应一个分割包，各个分割包的共有部分会被提取为 chunk
 
 export default {
   input: {
@@ -49,8 +52,6 @@ export default {
       exports: 'named'
     }
   ],
-  // 开启 rollup code-splitting
-  experimentalCodeSplitting: true,
 
   plugins: [
     postcss({
@@ -65,8 +66,8 @@ export default {
       exclude: 'node_modules/**', // 防止打包node_modules下的文件
       runtimeHelpers: true // 使plugin-transform-runtime生效
     }),
-    commonjs(),
-    isDev && terser()
+    commonjs()
+    // isDev && terser()
   ],
   external: externalAry // 排除打包
 }
